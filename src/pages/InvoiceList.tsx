@@ -104,7 +104,7 @@ export function InvoiceList() {
               Delete ({selectedIds.size})
             </Button>
           )}
-          <Button variant="outline">
+          <Button>
             <Download className="mr-2 h-4 w-4" />
             Export CSV
           </Button>

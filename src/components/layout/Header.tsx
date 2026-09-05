@@ -5,7 +5,7 @@ import { buttonVariants } from '@/components/ui/button';
 
 export function Header() {
   return (
-    <header className="flex h-14 items-center gap-4 border-b border-border bg-surface-1 px-4 lg:h-[60px] lg:px-6">
+    <header className="sticky top-0 z-10 flex h-14 items-center gap-4 border-b border-border bg-surface-1/90 backdrop-blur px-4 lg:px-6">
       <Button variant="outline" size="icon" className="shrink-0 md:hidden border-border bg-surface-1">
         <Menu className="h-5 w-5 text-ink" />
         <span className="sr-only">Toggle navigation menu</span>

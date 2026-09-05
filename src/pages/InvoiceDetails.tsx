@@ -74,7 +74,7 @@ export function InvoiceDetails() {
       </div>
 
       <div className="grid gap-6 md:grid-cols-2">
-        <Card className="bg-surface-1 border-border">
+        <Card>
           <CardHeader>
             <CardTitle className="text-card-title text-ink">Bill To</CardTitle>
           </CardHeader>
@@ -84,7 +84,7 @@ export function InvoiceDetails() {
             <p className="text-body-sm text-ink-subtle mt-1">{invoice.clientEmail}</p>
           </CardContent>
         </Card>
-        <Card className="bg-surface-1 border-border">
+        <Card>
           <CardHeader>
             <CardTitle className="text-card-title text-ink">Payment Details</CardTitle>
           </CardHeader>
@@ -101,7 +101,7 @@ export function InvoiceDetails() {
         </Card>
       </div>
 
-      <Card className="bg-surface-1 border-border">
+      <Card>
         <CardHeader>
           <CardTitle className="text-card-title text-ink">Line Items</CardTitle>
         </CardHeader>

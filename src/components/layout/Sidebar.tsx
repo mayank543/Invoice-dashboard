@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
-import { LayoutDashboard, FileText, Settings, HelpCircle, Package2 } from 'lucide-react';
+import { LayoutDashboard, FileText, Settings, HelpCircle } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 export function Sidebar() {
@@ -11,11 +11,10 @@ export function Sidebar() {
   ];
 
   return (
-    <div className="flex h-full w-64 flex-col border-r border-border bg-surface-1">
-      <div className="flex h-14 items-center border-b border-border px-4 lg:h-[60px] lg:px-6">
-        <Link to="/" className="flex items-center gap-2 font-semibold text-ink">
-          <Package2 className="h-6 w-6 text-primary" />
-          <span className="text-display-md text-[20px] tracking-[-0.2px]">FreightFox</span>
+    <div className="flex h-full flex-col border-r border-border bg-surface-1">
+      <div className="flex h-14 items-center border-b border-border px-4 lg:px-6">
+        <Link to="/" className="flex items-center">
+          <img src="/freightfox-logo.svg" alt="FreightFox Logo" className="h-8 w-auto" />
         </Link>
       </div>
       <div className="flex-1 overflow-auto py-4">
@@ -27,7 +26,7 @@ export function Sidebar() {
               className={cn(
                 "flex items-center gap-3 rounded-md px-3 py-2 transition-all hover:text-ink hover:bg-surface-2",
                 location.pathname === item.href 
-                  ? "bg-surface-2 text-ink font-medium" 
+                  ? "bg-primary/10 text-primary font-medium" 
                   : "text-ink-subtle"
               )}
             >

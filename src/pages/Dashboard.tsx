@@ -45,7 +45,7 @@ export function Dashboard() {
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-display-lg text-ink">Dashboard</h2>
+        <h2 className="text-display-md text-ink">Dashboard</h2>
         <p className="text-subhead text-ink-subtle mt-2">Overview of your invoice statistics.</p>
       </div>
       
@@ -77,21 +77,21 @@ export function Dashboard() {
       </div>
 
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-7">
-        <Card className="col-span-4 lg:col-span-4 bg-surface-1 border-border">
+        <Card className="col-span-4 lg:col-span-4">
           <CardHeader>
-            <CardTitle className="text-card-title text-ink">Recent Activity</CardTitle>
+            <CardTitle className="text-body font-medium text-ink">Recent Activity</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="space-y-6">
+            <div className="space-y-4">
               {recentInvoices.map(invoice => (
-                <div key={invoice.id} className="flex items-center">
+                <div key={invoice.id} className="flex items-center justify-between border-b border-border last:border-0 pb-4 last:pb-0">
                   <div className="space-y-1">
-                    <p className="text-body font-medium leading-none text-ink">{invoice.clientName}</p>
-                    <p className="text-body-sm text-ink-subtle">
+                    <p className="text-body-sm font-medium leading-none text-ink">{invoice.clientName}</p>
+                    <p className="text-caption text-ink-subtle">
                       {invoice.invoiceNumber}
                     </p>
                   </div>
-                  <div className="ml-auto text-body font-medium text-ink">
+                  <div className="text-body-sm font-medium text-ink">
                     {formatCurrency(invoice.total)}
                   </div>
                 </div>

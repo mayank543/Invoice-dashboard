@@ -4,13 +4,13 @@ import { Header } from './Header';
 
 export function Layout() {
   return (
-    <div className="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
+    <div className="grid min-h-screen w-full md:grid-cols-[256px_1fr] bg-canvas text-ink">
       <div className="hidden md:block">
         <Sidebar />
       </div>
       <div className="flex flex-col min-w-0">
         <Header />
-        <main className="flex flex-1 flex-col gap-6 p-6 lg:gap-8 lg:p-12 bg-canvas">
+        <main className="flex flex-1 flex-col gap-6 p-6 lg:p-8 bg-canvas">
           <Outlet />
         </main>
       </div>
