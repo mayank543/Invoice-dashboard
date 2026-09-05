@@ -1,0 +1,133 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root, .dark {
+    /* Linear Design System Colors */
+    
+    /* Brand & Accent */
+    --primary: 234 60% 60%; /* #5e6ad2 */
+    --primary-hover: 234 100% 75%; /* #828fff */
+    --primary-focus: 234 60% 60%; /* #5e69d1 */
+    --primary-foreground: 0 0% 100%;
+    
+    --brand-secure: 234 25% 58%; /* #7a7fad */
+
+    /* Surface */
+    --canvas: 240 100% 1%; /* #010102 */
+    --surface-1: 228 13% 7%; /* ~#101115 */
+    --surface-2: 233 15% 12%; /* ~#1A1B23 */
+    --surface-3: 231 15% 17%; /* ~#242631 */
+    --surface-4: 232 14% 22%; /* ~#303240 */
+    
+    --inverse-canvas: 0 0% 100%; /* #ffffff */
+    --inverse-surface-1: 0 0% 95%; 
+    --inverse-surface-2: 0 0% 90%; 
+
+    /* Borders */
+    --hairline: 223 9% 15%; /* #23252a */
+    --hairline-strong: 223 9% 23%;
+    --hairline-tertiary: 223 9% 31%;
+
+    /* Text */
+    --ink: 180 6% 97%; /* #f7f8f8 */
+    --ink-muted: 217 19% 85%; /* #d0d6e0 */
+    --ink-subtle: 219 7% 57%; /* #8a8f98 */
+    --ink-tertiary: 218 5% 41%; /* #62666d */
+    --inverse-ink: 240 100% 1%; 
+
+    /* Semantic */
+    --semantic-success: 134 62% 40%; /* #27a644 */
+    --semantic-overlay: 0 0% 0%; /* #000000 */
+    
+    /* Shadcn Fallback Mapping */
+    --background: var(--canvas);
+    --foreground: var(--ink);
+
+    --card: var(--surface-1);
+    --card-foreground: var(--ink);
+
+    --popover: var(--surface-2);
+    --popover-foreground: var(--ink);
+
+    --secondary: var(--surface-1);
+    --secondary-foreground: var(--ink);
+
+    --muted: var(--surface-2);
+    --muted-foreground: var(--ink-muted);
+
+    --accent: var(--surface-2);
+    --accent-foreground: var(--ink);
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: var(--hairline);
+    --input: var(--hairline);
+    --ring: var(--primary-focus);
+
+    /* Radii */
+    --radius-xs: 4px;
+    --radius-sm: 6px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+    --radius-xl: 16px;
+    --radius-pill: 9999px;
+    --radius: var(--radius-md); /* shadcn default */
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground antialiased font-sans;
+  }
+}
+
+/* Typography styles matching the design spec */
+@layer utilities {
+  .text-display-xl {
+    @apply text-[80px] font-semibold leading-[1.05] tracking-[-3.0px];
+  }
+  .text-display-lg {
+    @apply text-[56px] font-semibold leading-[1.10] tracking-[-1.8px];
+  }
+  .text-display-md {
+    @apply text-[40px] font-semibold leading-[1.15] tracking-[-1.0px];
+  }
+  .text-headline {
+    @apply text-[28px] font-semibold leading-[1.20] tracking-[-0.6px];
+  }
+  .text-card-title {
+    @apply text-[22px] font-medium leading-[1.25] tracking-[-0.4px];
+  }
+  .text-subhead {
+    @apply text-[20px] font-normal leading-[1.40] tracking-[-0.2px];
+  }
+  .text-body-lg {
+    @apply text-[18px] font-normal leading-[1.50] tracking-[-0.1px];
+  }
+  .text-body {
+    @apply text-[16px] font-normal leading-[1.50] tracking-[-0.05px];
+  }
+  .text-body-sm {
+    @apply text-[14px] font-normal leading-[1.50] tracking-normal;
+  }
+  .text-caption {
+    @apply text-[12px] font-normal leading-[1.40] tracking-normal;
+  }
+  .text-btn {
+    @apply text-[14px] font-medium leading-[1.20] tracking-normal;
+  }
+  .text-eyebrow {
+    @apply text-[13px] font-medium leading-[1.30] tracking-[0.4px];
+  }
+  
+  /* Dense layout utilities */
+  .section-gap {
+    @apply gap-24; /* 96px */
+  }
+}
