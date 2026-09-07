@@ -80,8 +80,8 @@ A high-performance, Linear-inspired dark mode Invoice Management System built wi
   - **Batch Delete (Admin Only):** Confirmation-gated mass deletion of all selected invoices.
 
 <!-- Screenshot Area: Bulk Selection -->
-> #### 🖼️ Bulk Actions Preview
-> ![Bulk Selection Screenshot](./docs/screenshots/bulk-actions.png)
+> #### 🖼️ Bulk Actions & Table Preview
+> ![Bulk Selection Screenshot](./docs/screenshots/invoice-list.png)
 
 ---
 
