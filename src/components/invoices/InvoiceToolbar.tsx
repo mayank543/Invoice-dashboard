@@ -29,6 +29,9 @@ const SORT_OPTIONS: SortOption[] = [
   { label: 'Status: A → Z', field: 'status', order: 'asc' },
 ];
 
+import type { DateRange } from 'react-day-picker';
+import { DateRangeFilter } from './DateRangeFilter';
+
 interface InvoiceToolbarProps {
   searchTerm: string;
   onSearchChange: (value: string) => void;
@@ -37,6 +40,8 @@ interface InvoiceToolbarProps {
   sortField: SortField;
   sortOrder: SortOrder;
   onSortChange: (field: SortField, order: SortOrder) => void;
+  dateRange: DateRange | undefined;
+  onDateRangeChange: (range: DateRange | undefined) => void;
 }
 
 export const InvoiceToolbar: React.FC<InvoiceToolbarProps> = React.memo(({
@@ -47,6 +52,8 @@ export const InvoiceToolbar: React.FC<InvoiceToolbarProps> = React.memo(({
   sortField,
   sortOrder,
   onSortChange,
+  dateRange,
+  onDateRangeChange,
 }) => {
   const currentSortOption = useMemo(() => {
     return SORT_OPTIONS.find(opt => opt.field === sortField && opt.order === sortOrder);
@@ -64,7 +71,10 @@ export const InvoiceToolbar: React.FC<InvoiceToolbarProps> = React.memo(({
         />
       </div>
 
-      <div className="flex items-center gap-2 ml-auto">
+      <div className="flex flex-wrap items-center gap-2 sm:ml-auto">
+        {/* Date Range Filter */}
+        <DateRangeFilter dateRange={dateRange} onDateRangeChange={onDateRangeChange} />
+
         {/* Dedicated Sort Dropdown */}
         <DropdownMenu>
           <DropdownMenuTrigger className={buttonVariants({ variant: "outline", className: "gap-2 border-border bg-surface-1 hover:bg-surface-2 text-ink text-xs font-medium" })}>

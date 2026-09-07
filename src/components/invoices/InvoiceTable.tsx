@@ -17,6 +17,7 @@ interface InvoiceTableProps {
   onSort: (field: SortField) => void;
   onDeleteSingle: (id: string) => void;
   onExportSingle: (invoice: Invoice) => void;
+  canDelete?: boolean;
 }
 
 export const InvoiceTable: React.FC<InvoiceTableProps> = React.memo(({
@@ -30,6 +31,7 @@ export const InvoiceTable: React.FC<InvoiceTableProps> = React.memo(({
   onSort,
   onDeleteSingle,
   onExportSingle,
+  canDelete = true,
 }) => {
   return (
     <div className="rounded-lg border border-border bg-surface-1 overflow-hidden shadow-sm">
@@ -127,6 +129,7 @@ export const InvoiceTable: React.FC<InvoiceTableProps> = React.memo(({
                 onToggleSelect={onToggleSelect}
                 onDelete={onDeleteSingle}
                 onExportSingle={onExportSingle}
+                canDelete={canDelete}
               />
             ))
           )}

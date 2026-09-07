@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { format } from 'date-fns';
 import { Eye, Download, MoreHorizontal, Trash } from 'lucide-react';
 import type { Invoice } from '@/types/invoice';
@@ -20,6 +20,7 @@ interface InvoiceTableRowProps {
   onToggleSelect: (id: string) => void;
   onDelete: (id: string) => void;
   onExportSingle: (invoice: Invoice) => void;
+  canDelete?: boolean;
 }
 
 const currencyFormatter = new Intl.NumberFormat('en-US', {
@@ -33,13 +34,30 @@ export const InvoiceTableRow: React.FC<InvoiceTableRowProps> = React.memo(({
   onToggleSelect,
   onDelete,
   onExportSingle,
+  canDelete = true,
 }) => {
+  const navigate = useNavigate();
+
+  const handleRowClick = (e: React.MouseEvent) => {
+    const target = e.target as HTMLElement;
+    if (
+      target.closest('button') || 
+      target.closest('input') || 
+      target.closest('a') ||
+      target.closest('[data-slot="dropdown-menu-trigger"]')
+    ) {
+      return;
+    }
+    navigate(`/invoices/${invoice.id}`);
+  };
+
   return (
     <TableRow 
       data-state={isSelected && "selected"}
-      className="hover:bg-surface-2/40 transition-colors border-b border-border"
+      onClick={handleRowClick}
+      className="hover:bg-surface-2/40 transition-colors border-b border-border cursor-pointer group"
     >
-      <TableCell className="text-center">
+      <TableCell className="text-center" onClick={(e) => e.stopPropagation()}>
         <Checkbox 
           checked={isSelected}
           onCheckedChange={() => onToggleSelect(invoice.id)}
@@ -59,7 +77,7 @@ export const InvoiceTableRow: React.FC<InvoiceTableRowProps> = React.memo(({
       <TableCell className="text-right font-medium font-mono text-ink">
         {currencyFormatter.format(invoice.total)}
       </TableCell>
-      <TableCell>
+      <TableCell onClick={(e) => e.stopPropagation()}>
         <DropdownMenu>
           <DropdownMenuTrigger className={buttonVariants({ variant: "ghost", size: "icon", className: "h-8 w-8 text-ink-subtle hover:text-ink hover:bg-surface-2" })}>
             <MoreHorizontal className="h-4 w-4" />
@@ -79,13 +97,15 @@ export const InvoiceTableRow: React.FC<InvoiceTableRowProps> = React.memo(({
               <Download className="mr-2 h-3.5 w-3.5 text-ink-subtle" />
               Download CSV
             </DropdownMenuItem>
-            <DropdownMenuItem 
-              onClick={() => onDelete(invoice.id)}
-              className="text-xs text-destructive hover:text-destructive cursor-pointer"
-            >
-              <Trash className="mr-2 h-3.5 w-3.5" />
-              Delete
-            </DropdownMenuItem>
+            {canDelete && (
+              <DropdownMenuItem 
+                onClick={() => onDelete(invoice.id)}
+                className="text-xs text-destructive hover:text-destructive cursor-pointer"
+              >
+                <Trash className="mr-2 h-3.5 w-3.5" />
+                Delete
+              </DropdownMenuItem>
+            )}
           </DropdownMenuContent>
         </DropdownMenu>
       </TableCell>

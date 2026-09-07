@@ -1,6 +1,9 @@
 import { useState, useMemo, useEffect, useCallback } from 'react';
 import { useInvoices } from '@/hooks/useInvoices';
+import { useRole } from '@/context/RoleContext';
 import type { Invoice, InvoiceStatus, SortField, SortOrder } from '@/types/invoice';
+import type { DateRange } from 'react-day-picker';
+import { startOfDay, endOfDay } from 'date-fns';
 import { Button } from '@/components/ui/button';
 import { Download, Trash } from 'lucide-react';
 import { ThinkingOrb } from 'thinking-orbs';
@@ -11,8 +14,10 @@ import { exportInvoicesToCsv, exportSingleInvoiceToCsv } from '@/utils/exportCsv
 
 export function InvoiceList() {
   const { invoices, loading, deleteInvoices } = useInvoices();
+  const { permissions } = useRole();
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState<InvoiceStatus | 'All'>('All');
+  const [dateRange, setDateRange] = useState<DateRange | undefined>(undefined);
   const [sortField, setSortField] = useState<SortField>('date');
   const [sortOrder, setSortOrder] = useState<SortOrder>('desc');
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
@@ -21,10 +26,10 @@ export function InvoiceList() {
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
 
-  // Reset to first page when search, status filter, or page size changes
+  // Reset to first page when search, status filter, date range, or page size changes
   useEffect(() => {
     setCurrentPage(1);
-  }, [searchTerm, statusFilter, pageSize]);
+  }, [searchTerm, statusFilter, dateRange, pageSize]);
 
   const handleSort = useCallback((field: SortField) => {
     setSortField(prevField => {
@@ -50,7 +55,24 @@ export function InvoiceList() {
           inv.clientName.toLowerCase().includes(searchTerm.toLowerCase()) || 
           inv.invoiceNumber.toLowerCase().includes(searchTerm.toLowerCase());
         const matchesStatus = statusFilter === 'All' || inv.status === statusFilter;
-        return matchesSearch && matchesStatus;
+        
+        let matchesDate = true;
+        if (dateRange?.from) {
+          const invDate = new Date(inv.date);
+          const fromDate = startOfDay(dateRange.from);
+          if (invDate < fromDate) {
+            matchesDate = false;
+          }
+        }
+        if (matchesDate && dateRange?.to) {
+          const invDate = new Date(inv.date);
+          const toDate = endOfDay(dateRange.to);
+          if (invDate > toDate) {
+            matchesDate = false;
+          }
+        }
+
+        return matchesSearch && matchesStatus && matchesDate;
       })
       .sort((a, b) => {
         let aVal: any = a[sortField];
@@ -69,7 +91,7 @@ export function InvoiceList() {
         if (aVal > bVal) return sortOrder === 'asc' ? 1 : -1;
         return 0;
       });
-  }, [invoices, searchTerm, statusFilter, sortField, sortOrder]);
+  }, [invoices, searchTerm, statusFilter, dateRange, sortField, sortOrder]);
 
   // Total pages and safe clamped current page
   const totalPages = Math.max(1, Math.ceil(filteredInvoices.length / pageSize));
@@ -111,15 +133,17 @@ export function InvoiceList() {
     });
   }, []);
 
-  // Deletion handlers
+  // Deletion handlers (gated by role permissions)
   const handleDeleteSelected = useCallback(async () => {
+    if (!permissions.canDelete) return;
     if (confirm(`Are you sure you want to delete ${selectedIds.size} selected invoice(s)?`)) {
       await deleteInvoices(Array.from(selectedIds));
       setSelectedIds(new Set());
     }
-  }, [selectedIds, deleteInvoices]);
+  }, [selectedIds, deleteInvoices, permissions.canDelete]);
 
   const handleDeleteSingle = useCallback(async (id: string) => {
+    if (!permissions.canDelete) return;
     if (confirm('Are you sure you want to delete this invoice?')) {
       await deleteInvoices([id]);
       setSelectedIds(prev => {
@@ -129,7 +153,7 @@ export function InvoiceList() {
         return next;
       });
     }
-  }, [deleteInvoices]);
+  }, [deleteInvoices, permissions.canDelete]);
 
   // Export handlers
   const handleExportBulk = useCallback(() => {
@@ -163,11 +187,11 @@ export function InvoiceList() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
-          <h2 className="text-display-lg text-ink">Invoices</h2>
+          <h2 className="text-display-md text-ink">Invoices</h2>
           <p className="text-subhead text-ink-subtle mt-1">Manage and track your customer billings and payments.</p>
         </div>
         <div className="flex items-center gap-2">
-          {selectedIds.size > 0 && (
+          {permissions.canDelete && selectedIds.size > 0 && (
             <Button variant="destructive" onClick={handleDeleteSelected}>
               <Trash className="mr-2 h-4 w-4" />
               Delete ({selectedIds.size})
@@ -192,6 +216,8 @@ export function InvoiceList() {
         sortField={sortField}
         sortOrder={sortOrder}
         onSortChange={handleToolbarSortChange}
+        dateRange={dateRange}
+        onDateRangeChange={setDateRange}
       />
 
       {/* Invoices Table */}
@@ -206,6 +232,7 @@ export function InvoiceList() {
         onSort={handleSort}
         onDeleteSingle={handleDeleteSingle}
         onExportSingle={handleExportSingle}
+        canDelete={permissions.canDelete}
       />
 
       {/* Pagination Footer */}

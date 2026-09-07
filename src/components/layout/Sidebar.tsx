@@ -1,6 +1,7 @@
 import { Link, useLocation } from 'react-router-dom';
 import { LayoutDashboard, FileText, Settings, HelpCircle } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { RoleSwitcher } from '@/components/shared/RoleSwitcher';
 
 export function Sidebar() {
   const location = useLocation();
@@ -11,7 +12,7 @@ export function Sidebar() {
   ];
 
   return (
-    <div className="flex h-full flex-col border-r border-border bg-surface-1">
+    <div className="flex h-full flex-col border-r border-border bg-canvas">
       <div className="flex h-14 items-center border-b border-border px-4 lg:px-6">
         <Link to="/" className="flex items-center">
           <img src="/freightfox-logo.svg" alt="FreightFox Logo" className="h-8 w-auto" />
@@ -25,8 +26,8 @@ export function Sidebar() {
               to={item.href}
               className={cn(
                 "flex items-center gap-3 rounded-md px-3 py-2 transition-all hover:text-ink hover:bg-surface-2",
-                location.pathname === item.href 
-                  ? "bg-primary/10 text-primary font-medium" 
+                location.pathname === item.href
+                  ? "bg-primary/10 text-primary font-medium"
                   : "text-ink-subtle"
               )}
             >
@@ -36,8 +37,9 @@ export function Sidebar() {
           ))}
         </nav>
       </div>
-      <div className="mt-auto p-4">
-        <nav className="grid items-start text-body-sm font-medium gap-1">
+      <div className="mt-auto border-t border-border pt-2 pb-3">
+        <RoleSwitcher />
+        <nav className="grid items-start text-body-sm font-medium gap-1 px-3 mt-1">
           <Link
             to="#"
             className="flex items-center gap-3 rounded-md px-3 py-2 text-ink-subtle transition-all hover:text-ink hover:bg-surface-2"
