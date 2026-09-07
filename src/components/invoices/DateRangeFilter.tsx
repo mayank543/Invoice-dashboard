@@ -68,17 +68,17 @@ export const DateRangeFilter: React.FC<DateRangeFilterProps> = React.memo(({
             )}
           </span>
         </PopoverTrigger>
-        <PopoverContent align="end" className="w-auto p-3 bg-surface-2 border-border text-ink">
-          <div className="flex flex-col gap-3">
+        <PopoverContent align="end" className="w-[260px] p-3 bg-surface-2 border-border text-ink shadow-2xl rounded-xl">
+          <div className="flex flex-col gap-2.5">
             {/* Quick presets */}
-            <div className="flex flex-wrap gap-1.5 pb-2 border-b border-border">
+            <div className="grid grid-cols-2 gap-1.5 pb-2.5 border-b border-border w-full">
               {presets.map((preset) => (
                 <Button
                   key={preset.label}
                   variant="outline"
                   size="xs"
                   onClick={() => onDateRangeChange(preset.getRange())}
-                  className="text-[11px] h-6 px-2 bg-surface-1 border-border text-ink-subtle hover:text-ink hover:bg-surface-3"
+                  className="text-[11px] h-6 px-2 bg-surface-1 border-border text-ink-subtle hover:text-ink hover:bg-surface-3 transition-colors w-full justify-center"
                 >
                   {preset.label}
                 </Button>
@@ -92,7 +92,7 @@ export const DateRangeFilter: React.FC<DateRangeFilterProps> = React.memo(({
               selected={dateRange}
               onSelect={onDateRangeChange}
               numberOfMonths={1}
-              className="rounded-md border-0 bg-transparent text-ink p-0"
+              className="rounded-md border-0 bg-transparent text-ink p-0 w-full"
             />
 
             {/* Clear button in popover */}
