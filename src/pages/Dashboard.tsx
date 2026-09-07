@@ -1,7 +1,7 @@
 import { useDashboardStats, useInvoices } from '@/hooks/useInvoices';
 import { StatCard } from '@/components/shared/StatCard';
 import { FileText, CheckCircle2, Clock, AlertCircle } from 'lucide-react';
-import { Skeleton } from '@/components/ui/skeleton';
+import { ThinkingOrb } from 'thinking-orbs';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 export function Dashboard() {
@@ -17,25 +17,9 @@ export function Dashboard() {
 
   if (loading || !stats) {
     return (
-      <div className="space-y-6">
-        <div>
-          <h2 className="text-display-lg text-ink">Dashboard</h2>
-          <p className="text-subhead text-ink-subtle mt-2">Overview of your invoice statistics.</p>
-        </div>
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-          {[...Array(4)].map((_, i) => (
-            <Card key={i}>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <Skeleton className="h-4 w-[100px]" />
-                <Skeleton className="h-4 w-4" />
-              </CardHeader>
-              <CardContent>
-                <Skeleton className="h-8 w-[120px] mb-2" />
-                <Skeleton className="h-4 w-[80px]" />
-              </CardContent>
-            </Card>
-          ))}
-        </div>
+      <div className="flex flex-col h-72 items-center justify-center gap-4 text-ink-subtle">
+        <ThinkingOrb state="searching" size={64} />
+        <span className="text-xs font-medium text-ink-subtle tracking-wide">Loading dashboard...</span>
       </div>
     );
   }

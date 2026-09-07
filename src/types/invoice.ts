@@ -1,4 +1,6 @@
 export type InvoiceStatus = 'Paid' | 'Pending' | 'Overdue';
+export type SortField = 'date' | 'dueDate' | 'clientName' | 'total' | 'status';
+export type SortOrder = 'asc' | 'desc';
 
 export interface LineItem {
   id: string;
