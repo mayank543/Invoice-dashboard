@@ -1,115 +1,177 @@
-# 🦊 FreightFox — Invoice Management System
+# 🦊 FreightFox — Enterprise Invoice Management System
 
-A high-performance, Linear-inspired dark mode Invoice Management System built with **React 19**, **TypeScript**, and **Tailwind CSS**. Designed with sub-millisecond interaction speed, rich micro-interactions, full keyboard/mouse responsiveness, and strict architectural decoupling.
+A high-performance, Linear-inspired dark mode Invoice Management System built with **React 19**, **TypeScript**, and **Tailwind CSS**. Designed for operational speed, zero-latency interactions, modular component decoupling, and role-gated financial workflows.
 
 ---
 
-## 📸 Screenshots
+## 📸 Interface & Feature Gallery
 
-| Feature | Preview |
+| Feature Area | Screenshot Preview |
 | :--- | :--- |
-| **Dashboard** | ![Dashboard Overview](./docs/screenshots/dashboard.png) |
-| **Invoice Listing** | ![Invoice Listing](./docs/screenshots/invoice-list.png) |
-| **Date Range & Filters** | ![Filters and Sorting](./docs/screenshots/filters.png) |
-| **Invoice Details & Print** | ![Invoice Details](./docs/screenshots/invoice-details.png) |
-| **Role-Based Switcher** | ![Role Switcher](./docs/screenshots/rbac-roles.png) |
+| **Executive Financial Dashboard** | ![Executive Dashboard](./docs/screenshots/dashboard.png) |
+| **Invoice Management Table** | ![Invoice List Table](./docs/screenshots/invoice-list.png) |
+| **Multi-Faceted Filters & Date Range** | ![Filters and Date Picker](./docs/screenshots/filters.png) |
+| **Invoice Details & Printable PDF** | ![Invoice Details & PDF](./docs/screenshots/invoice-details.png) |
+| **Role-Based Access Control (RBAC)** | ![Role Switcher](./docs/screenshots/rbac-roles.png) |
 
 ---
 
-## ✨ Features Overview
+## 🎯 Key Capabilities & Detailed Feature Breakdown
 
 ### 1. 📊 Executive Financial Dashboard
-- **Metric Cards:** High-level monetary and count summaries for **Total Invoices**, **Paid Amount**, **Pending Amount**, and **Overdue Amount**.
-- **Recent Activity Feed:** Quick look at the 5 most recent client billings and invoice statuses.
-- **Unified Linear Aesthetic:** Streamlined dark canvas (`#010102`), subtle hairlines, and primary indigo accent (`#5e6ad2`).
+- **Real-Time Financial Metrics:**
+  - **Total Invoices & Amount:** Aggregated monetary value and invoice count.
+  - **Paid Invoices:** Total revenue collected and count of settled invoices.
+  - **Pending Balance:** Outstanding receivables waiting for settlement.
+  - **Overdue Invoices:** Critical past-due volume requiring billing follow-ups.
+- **Recent Activity Feed:** Live list displaying recent client billings, invoice IDs, and timestamped totals.
+- **Linear Design System:** Tailored dark canvas (`#010102`), border hairlines, and primary indigo accent (`#5e6ad2`).
 
-<!-- Screenshot placeholder: Dashboard -->
-> ![Dashboard Screenshot](./docs/screenshots/dashboard.png)
-
----
-
-### 2. 🧾 Invoice Listing & Row Navigation
-- **Table View:** Clean, dense table displaying invoice numbers, client names, issue dates, status badges, amounts, and row actions.
-- **Full Row Clickability:** Click anywhere on an invoice row to instantly navigate to its details view.
-- **Non-blocking Interactive Targets:** Checkboxes, quick action menus, and links stop event propagation to avoid accidental navigation.
-
-<!-- Screenshot placeholder: Invoice List -->
-> ![Invoice List Screenshot](./docs/screenshots/invoice-list.png)
+<!-- Screenshot Area: Dashboard -->
+> #### 🖼️ Dashboard Preview
+> ![Executive Dashboard Screenshot](./docs/screenshots/dashboard.png)
 
 ---
 
-### 3. 🔍 Search, Date Range & Sorting
-- **Real-Time Search:** Instant client name and invoice number querying.
-- **Date Range Picker (`react-day-picker`):** 
-  - **Quick Presets:** 1-click filtering for *Last 7 Days*, *Last 30 Days*, *This Month*, and *Last 90 Days*.
-  - **Custom Range:** Interactive calendar popover allowing custom start and end date selection.
-- **Status Filter:** Filter by *All*, *Paid*, *Pending*, or *Overdue*.
-- **Dedicated Sorting Dropdown:** Quick-sort by *Date (Newest/Oldest)*, *Amount (High to Low / Low to High)*, *Client (A → Z / Z → A)*, and *Due Date*. Synchronized with column header sort arrows.
+### 2. 🧾 Dense Invoice Table & Interactive Rows
+- **High-Density Table View:** Displays Invoice Number, Client Name, Issue Date, Status Badge, Formatted Total, and Contextual Actions.
+- **Full-Row Click Navigation:** Click anywhere on an invoice row to instantly navigate to `/invoices/:id`.
+- **Event-Isolated Controls:** Checkboxes, status dropdowns, and row action popovers stop event propagation to avoid accidental row navigation.
+- **Status Badges:** Semantically colored status pills:
+  - 🟢 **Paid:** Settled invoices.
+  - 🟡 **Pending:** Awaiting client payment.
+  - 🔴 **Overdue:** Past due date invoices.
 
-<!-- Screenshot placeholder: Filters & Sorting -->
-> ![Filters and Sorting Screenshot](./docs/screenshots/filters.png)
-
----
-
-### 4. 📄 Pagination & Density
-- **Pagination Controls:** Ellipsis-aware page numbering (`1, 2, 3... Next`) styled with active indigo pill indicators.
-- **Records Per Page:** Easily switch between `10`, `20`, or `50` rows per page with automatic page-1 boundary reset.
+<!-- Screenshot Area: Invoice Listing -->
+> #### 🖼️ Invoice Table Preview
+> ![Invoice List Table Screenshot](./docs/screenshots/invoice-list.png)
 
 ---
 
-### 5. 📦 Bulk Selection & Batch Actions
-- **Page-Scoped Select All:** Check the table header checkbox to toggle selection of all rows on the active page.
+### 3. 🔍 Search, Advanced Filters & Date Range Engine
+- **Instant Search:** Debounced client name and invoice number filtering across the entire dataset.
+- **Date Range Picker (`react-day-picker`):**
+  - **1-Click Quick Presets:** *Last 7 Days*, *Last 30 Days*, *This Month*, and *Last 90 Days* in a compact 2x2 grid.
+  - **Custom Range Selection:** Interactive calendar popover allowing arbitrary start and end date boundaries.
+  - **Active State Indicators & Quick Clear:** Visual indicator showing active date bounds with a 1-click `(X)` reset button.
+- **Status Filter:** Filter across *All*, *Paid*, *Pending*, or *Overdue*.
+- **Dedicated Sorting Menu & Header Sync:**
+  - **Dedicated Sort Dropdown:** Quick-sort by *Date (Newest/Oldest)*, *Amount (High to Low / Low to High)*, *Client (A → Z / Z → A)*, *Due Date*, and *Status*.
+  - **Bi-Directional Header Sync:** Clicking table headers updates the dedicated sort dropdown in real-time with visual sort arrow indicators (`ArrowUp`, `ArrowDown`, `ArrowUpDown`).
+
+<!-- Screenshot Area: Filters & Date Picker -->
+> #### 🖼️ Search & Filters Preview
+> ![Filters and Date Picker Screenshot](./docs/screenshots/filters.png)
+
+---
+
+### 4. 📄 Smart Pagination
+- **Configurable Page Density:** Switch between `10`, `20`, or `50` records per page.
+- **Ellipsis Navigation:** Compact, smart page numbers (`1, 2, 3... 5`) with active indigo pill indicators.
+- **Automatic Boundary Clamping:** Changing search terms, filters, or page sizes automatically resets to Page 1 to prevent empty viewport states.
+- **Record Counter:** Live status counter: *"Showing X to Y of Z invoices"*.
+
+---
+
+### 5. 📦 Bulk Selection & Batch Operations
+- **Page-Scoped Select All:** Check the table header checkbox to select/deselect all rows on the active page.
 - **Context-Aware Action Buttons:**
-  - **Export Selected (N):** Automatically adapts the export button to download only selected invoices if checkboxes are active.
+  - **Export Selected (N):** The main export button dynamically transforms to export only selected rows when checkboxes are checked.
   - **Batch Delete (Admin Only):** Confirmation-gated mass deletion of all selected invoices.
 
-<!-- Screenshot placeholder: Bulk Selection -->
+<!-- Screenshot Area: Bulk Selection -->
+> #### 🖼️ Bulk Actions Preview
 > ![Bulk Selection Screenshot](./docs/screenshots/bulk-actions.png)
 
 ---
 
-### 6. 💾 CSV & PDF Export / Print Engine
-- **Bulk CSV Export:** Exports all filtered or selected invoices with properly escaped fields, date formatting, and timestamped filenames (`invoices_YYYY-MM-DD_HHmm.csv`).
-- **Single Invoice CSV:** Quick 1-click CSV download for individual invoices directly from row action menus.
-- **Branded PDF / Print Document:** Dedicated print generation utility in [`src/utils/invoicePdf.ts`](./src/utils/invoicePdf.ts) that renders a formatted invoice with company branding, client addresses, line items, taxes, and totals for standard paper printing or Save-as-PDF.
+### 6. 💾 CSV & PDF Export Engine
+- **Bulk CSV Export:** Exports all filtered or selected invoices with CSV-compliant quote and comma escaping.
+- **Single Invoice CSV:** 1-click download from individual row menus.
+- **Branded Print / PDF Document (`src/utils/invoicePdf.ts`):**
+  - Generates a standalone, print-ready document formatted for standard A4 paper or Save-as-PDF.
+  - Includes FreightFox branding, client billing address, line items breakdown (description, qty, rate, amount), subtotal, 10% tax calculation, and total due.
 
-<!-- Screenshot placeholder: Invoice Details -->
+<!-- Screenshot Area: Invoice Details & PDF -->
+> #### 🖼️ Invoice Details & PDF Export Preview
 > ![Invoice Details Screenshot](./docs/screenshots/invoice-details.png)
 
 ---
 
 ### 7. 🛡️ Role-Based Access Control (RBAC)
-Includes a global role management system with an interactive **Role Switcher** in the sidebar:
+The application includes a global role permissions system managed via [`src/context/RoleContext.tsx`](./src/context/RoleContext.tsx) and an interactive **Role Switcher** widget in the sidebar:
 
-| Role | Permissions & Gated Actions |
-| :--- | :--- |
-| **🛡️ Admin** | **Full Access:** View invoices, update invoice statuses (*Paid/Pending/Overdue*), perform single and bulk deletions, export CSV/PDF. |
-| **⚠️ Manager** | **Operational Access:** View invoices, update invoice statuses, export CSV/PDF. **Delete actions are disabled/hidden.** |
-| **👁️ Viewer** | **Read-Only Auditor:** View dashboard and invoice details, export CSV/PDF. **All delete actions and status update controls are disabled.** |
+```
+┌─────────────────────────────────────────────────────────────┐
+│                      RBAC PERMISSION MATRIX                 │
+├───────────────────┬──────────────┬──────────────┬───────────┤
+│ Capability        │   🛡️ Admin   │  ⚠️ Manager  │ 👁️ Viewer │
+├───────────────────┼──────────────┼──────────────┼───────────┤
+│ View Dashboard    │      ✅      │      ✅      │    ✅     │
+│ View Invoices     │      ✅      │      ✅      │    ✅     │
+│ Export CSV / PDF  │      ✅      │      ✅      │    ✅     │
+│ Edit Status       │      ✅      │      ✅      │    ❌     │
+│ Single Delete     │      ✅      │      ❌      │    ❌     │
+│ Bulk Batch Delete │      ✅      │      ❌      │    ❌     │
+└───────────────────┴──────────────┴──────────────┴───────────┘
+```
 
-<!-- Screenshot placeholder: RBAC Switcher -->
+#### Role Breakdown:
+1. **🛡️ Admin:** Full administrative control. Can perform single/batch invoice deletions, update invoice statuses (*Paid/Pending/Overdue*), and export data.
+2. **⚠️ Manager:** Operational control. Can review invoices, update statuses, and export data. **All delete actions are hidden and disabled.**
+3. **👁️ Viewer:** Read-only auditor mode. Can view financial statistics and invoices, and download CSV/PDF exports. **All mutation and deletion controls are completely disabled.**
+
+<!-- Screenshot Area: Role Switcher -->
+> #### 🖼️ Role-Based Access Switcher Preview
 > ![Role-Based Access Control](./docs/screenshots/rbac-roles.png)
 
 ---
 
 ## ⚡ Performance & Architecture Highlights
 
-- **Instant Zero-Latency Transitions:** In-memory mock service runs with 0ms artificial delay for instantaneous tab navigation.
-- **Decoupled Architecture:** Decomposed from a 580+ line monolithic file into dedicated presentational components (`InvoiceToolbar`, `InvoiceTable`, `InvoiceTableRow`, `InvoicePagination`, `DateRangeFilter`).
-- **Row Memoization (`React.memo`):** Table rows are individually memoized with `useCallback` stable handlers; toggling a checkbox on 1 row bails out re-rendering on the remaining 49 rows.
-- **Pure Business Logic:** Pure CSV and PDF utilities isolated in `src/utils/` without React or DOM dependencies.
-- **Thinking Orb Loader:** Smooth orbital state animations via `thinking-orbs` during initial data load.
+```
+src/
+├── context/
+│   └── RoleContext.tsx            # Global RBAC permissions & role switcher state
+├── utils/
+│   ├── exportCsv.ts               # Pure CSV string escaping & download engine
+│   └── invoicePdf.ts              # Standalone printable invoice document generator
+├── components/
+│   ├── invoices/
+│   │   ├── DateRangeFilter.tsx    # Interactive calendar popover & 1-click presets
+│   │   ├── InvoicePagination.tsx  # Ellipsis navigation & rows-per-page selector
+│   │   ├── InvoiceTable.tsx       # Table headers, sort arrows, and row mapping
+│   │   ├── InvoiceTableRow.tsx    # React.memo isolated rows for zero-waste renders
+│   │   └── InvoiceToolbar.tsx     # Search bar, date filter, sort & status dropdowns
+│   ├── shared/
+│   │   ├── RoleSwitcher.tsx       # Sidebar interactive role switcher
+│   │   └── StatusBadge.tsx        # Semantic status badge
+│   └── layout/
+│       ├── Layout.tsx             # App shell with unified bg-canvas
+│       └── Sidebar.tsx            # Sidebar navigation & branding
+└── pages/
+    ├── Dashboard.tsx              # Executive financial metrics & recent activity
+    ├── InvoiceList.tsx            # Clean orchestrator (~220 lines)
+    └── InvoiceDetails.tsx         # Detailed breakdown, line items & status editor
+```
+
+- **Zero-Latency In-Memory Transitions:** 0ms artificial delays for snappy, instant tab navigation.
+- **Decoupled Architecture:** Decomposed from a 580+ line monolithic file into single-responsibility presentational modules.
+- **Granular Row Memoization (`React.memo`):** Table rows are memoized with `useCallback` stable handlers; selecting 1 row does not trigger re-renders on the other 49 rows.
+- **Thinking Orb Animation:** Orbital state loader via `thinking-orbs` during initial data load.
 
 ---
 
 ## 🛠️ Tech Stack
 
-- **Framework:** React 19 + Vite
-- **Language:** TypeScript
-- **Styling:** Tailwind CSS + Vanilla CSS Tokens
-- **Icons:** Lucide React
-- **Date Utilities:** `date-fns` + `react-day-picker`
-- **Animations / Loaders:** `thinking-orbs`
+| Layer | Technology |
+| :--- | :--- |
+| **Framework** | React 19 + Vite |
+| **Language** | TypeScript |
+| **Styling** | Tailwind CSS + Vanilla Design Tokens |
+| **Icons** | Lucide React |
+| **Date & Calendar** | `date-fns` + `react-day-picker` |
+| **Animations / Loader** | `thinking-orbs` |
 
 ---
 
@@ -132,4 +194,4 @@ Open [http://localhost:5173](http://localhost:5173) in your browser.
 ```bash
 npm run build
 ```
-Generates optimized static assets in the `dist/` folder.
+Generates production-optimized static assets in the `dist/` folder.
